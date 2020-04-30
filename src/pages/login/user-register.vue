@@ -57,11 +57,13 @@ export default {
   },
   methods: {
     handleRegister() {
-      (this as any).loading = true
-      console.log((this as any).form)
-    },
-    handleReset() {
-
+      (this as any).loading = true;
+      (this as any).$request('register', 'GET', (this as any).form).then( (res:any) => {
+        uni.setStorageSync('login', JSON.stringify(res))
+        uni.navigateTo({
+          url: `/pages/login/user-login`
+        })
+      })
     },
     handleChangeCheck() {
       (this as any).checked = !(this as any).checked

@@ -4,14 +4,14 @@
       <text class="uni-login-title">火星语</text> 
     </view>
     <view class="uni-login-container">
-      <form @submit="handleSubmit" @reset="handleReset">
+      <form :model="form" @submit="handleSubmit" @reset="handleReset">
         <view class="cu-form-group margin-top">
           <view class="title label-name">用户名</view>
-          <input type="text" placeholder="请输入用户名" />
+          <input v-model="form.username" type="text" placeholder="请输入用户名" />
         </view>
         <view class="cu-form-group margin-top">
           <view class="title label-name">密码</view>
-          <input type="password" placeholder="请输入密码" password />
+          <input v-model="form.password" type="password" placeholder="请输入密码" password />
         </view>
         <button class="cu-btn bg-grey lg cu-btn fill margin-top" @click="handleSubmit"> 登录 </button>
         <view class="pull-right margin-top">
@@ -29,20 +29,56 @@
 * onHide  页面隐藏时出发
 * onSHow  页面展示时出发，如果是首页面则不会出发
 */
+import {setToken} from '@/utils/authToken'
+const default_form:Object = {
+  username: null,
+  password: null
+}
+interface loginData {
+  loading: Boolean,
+  form: any,
+}
 export default {
-  data() {
+  data():loginData {
     return {
-      template: '这是一个基于typescript的uniapp框架',
-      loading: false
+      loading: false,
+      form: Object.assign({}, default_form)
     }
+  },
+  mounted() {
+    (this as any).form = Object.assign({},JSON.parse(uni.getStorageSync('login')))
   },
   methods: {
     handleSubmit() {
       ;(this as any).loading = true
+      uni.request({
+        url: "http://localhost:7001/api/v1/login",
+        method: "GET",
+        data: {
+          ...(this as any).form
+        },
+        success: (res:any) => {
+          setToken(res.data.data.token)
+          uni.showToast({
+            title: '登录成功',
+            duration: 1000,
+            icon: 'success',
+            success: (res:any) => {
+              uni.navigateTo({
+                url:"/pages/face/face-check"
+              })
+            }
+          })
+        },
+        fail: (res:any) => {
+          uni.showToast({
+            title: '登录失败',
+            duration: 1000,
+            icon: "none"
+          })
+        }
+      })
     },
-    handleReset() {
-
-    }
   }
 }
 </script>

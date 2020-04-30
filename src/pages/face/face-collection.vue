@@ -39,7 +39,7 @@
     .face-collection-circle1 {
       height: 300rpx;
       width: 600rpx;
-      border: 1rpx solid #666;
+      border: 1rpx solid #999;
       border-top-left-radius: 300rpx;
       border-top-right-radius: 300rpx;
       border-bottom: none;
@@ -51,7 +51,7 @@
       height: 280rpx;
       width: 560rpx;
       margin-top: 20rpx;
-      border: 1rpx solid #666;
+      border: 1rpx solid #999;
       border-top-left-radius: 280rpx;
       border-top-right-radius: 280rpx;
       border-bottom: none;
