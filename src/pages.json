@@ -1,36 +1,23 @@
 {
-	"pages": [ 
+  "easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
 		{
-			"path": "pages/login/user-login",
+			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "登录"
+				"navigationBarTitleText": "uni-app"
 			}
     },
     {
-			"path": "pages/login/user-register",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
-		},
+      "path" : "pages/login/login",
+      "style" : {}
+    },
     {
-			"path": "pages/face/face-check",
-			"style": {
-				"navigationBarTitleText": "人脸收集"
-			}
-		},
-    {
-			"path": "pages/face/face-collection",
-			"style": {
-				"navigationBarTitleText": "人脸收集"
-			}
-		},
-    {
-			"path": "pages/face/face-pass",
-			"style": {
-				"navigationBarTitleText": "人脸收集"
-			}
-		}
-	],
+      "path" : "pages/user/user",
+      "style" : {}
+    }
+  ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
