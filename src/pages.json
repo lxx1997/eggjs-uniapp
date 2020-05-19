@@ -11,11 +11,42 @@
     },
     {
       "path" : "pages/login/login",
+      "style" : {
+      }
+    },
+    {
+    "path" : "pages/login/register",
       "style" : {}
     },
     {
       "path" : "pages/user/user",
       "style" : {}
+    },
+    {
+      "path" : "pages/user/user_info",
+      "style" : {}
+    },
+    {
+      "path" : "pages/user/user_edit",
+      "style" : {}
+    },
+    {
+      "path" : "pages/list/list",
+      "style" : {}
+    },
+    {
+      "path" : "pages/upload/auther-novel-list",
+      "style" : {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path" : "pages/upload/auther-novel",
+      "style" : {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
 	"globalStyle": {
@@ -23,5 +54,26 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	}
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+    {
+        "pagePath": "pages/index/index",
+        "text": "书架"
+    },{
+      "pagePath": "pages/list/list",
+      "text": "列表"
+    },{
+      "pagePath": "pages/upload/auther-novel-list",
+      "text": "上传"
+    },{
+      "pagePath": "pages/user/user",
+      "text": "我"
+    }
+  ]
+}
 }

@@ -9,14 +9,29 @@
           v-model="form.username"
           label="手机号"
           placeholder="请填写手机号"
+        >
+        </u-field>
+        <u-field
+          v-model="form.password"
+          label="验证码"
+          placeholder="请填写验证码"
         />
         <u-field
           v-model="form.password"
           label="验证码"
           placeholder="请填写验证码"
         />
-        <p class="login-to-register">没有账号，点击<navigator class="link-type" url="/pages/login/register">注册</navigator></p>
-        <button type="primary" @tap="handleSubmit">登录</button>
+        <view class="register-to-login-check">
+          <u-checkbox-group @change="checkboxGroupChange">
+            <u-checkbox
+              v-model="checked"
+            >
+            <span style="font-size:24rpx;">同意用户协议</span>
+            </u-checkbox>
+          </u-checkbox-group>
+          <p class="register-to-login">已有账号，点击<navigator class="link-type" url="/pages/login/register">注册</navigator></p>
+        </view>
+        <u-button type="primary" @tap="handleRegister">注册</u-button>
       </u-cell-group>
     </view>
   </view>
@@ -29,48 +44,35 @@
 * onHide  页面隐藏时出发
 * onSHow  页面展示时出发，如果是首页面则不会出发
 */
-// import {setToken} from '~@/utils/authToken'
-import { setToken } from '@/utils/authToken'
 // eslint-disable-next-line camelcase
 const default_form = {
   username: null,
-  password: null
+  password: null,
+  repassword: null
 }
 export default {
   data () {
     return {
       loading: false,
-      form: Object.assign({}, default_form)
+      form: Object.assign({}, default_form),
+      checked: true
     }
   },
-  onLoad () {
-    this.form = Object.assign({}, JSON.parse(uni.getStorageSync('login') ? uni.getStorageSync('login') : '{}'))
-  },
   methods: {
-    handleSubmit () {
+    handleRegister () {
       this.loading = true
-      this.$request('login', 'GET', { ...this.form }).then((res) => {
-        console.log(res)
-        console.log(res.token)
-        setToken(res.token)
-        uni.setStorageSync('login', true)
-        uni.showToast({
-          title: '登录成功',
-          duration: 1000,
-          icon: 'success',
-          success: (res) => {
-            uni.switchTab({
-              url: '/pages/user/user'
-            })
-          }
-        })
-      }).catch((err) => {
-        uni.showToast({
-          title: err.msg,
-          duration: 3000,
-          icon: 'none'
+      this.$request('register', 'GET', this.form).then((res) => {
+        uni.setStorageSync('login', JSON.stringify(res))
+        uni.navigateTo({
+          url: '/pages/login/user-login'
         })
       })
+    },
+    handleChangeCheck () {
+      this.checked = !this.checked
+    },
+    checkboxGroupChange () {
+
     }
   }
 }
@@ -111,11 +113,19 @@ export default {
     }
   }
 }
-  .login-to-register {
+.register-to-login-check {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    padding-left: 20rpx;
+    .u-checkbox__icon-wrap {
+      margin-top: 10rpx;
+    }
+  .register-to-login {
+    display: flex;
+    justify-content: flex-end;
     font-size: 25rpx;
     padding: 0 30rpx;
-    margin: 40rpx 0;
+    margin: 20rpx 40rpx 0;
   }
+}
 </style>
