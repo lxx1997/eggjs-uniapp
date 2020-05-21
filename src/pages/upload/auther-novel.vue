@@ -3,7 +3,7 @@
   <view class="auther-novel-novel">
     <view class="auther-novel-novel-top" style="background:url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3360834600,1404834512&fm=26&gp=0.jpg) no-repeat 100%">
     </view>
-    <view class="go-back">
+    <view class="go-back" @click="handleGoBack">
       <i class="icon iconfont iconIcon-fanhui"></i>
     </view>
     <view class="auther-novel-novel-bottom">
@@ -48,7 +48,14 @@ export default {
 
     },
     handleUpdateNovel () {
-
+      uni.navigateTo({
+        url: '/pages/upload/auther-novel-update'
+      })
+    },
+    handleGoBack () {
+      uni.navigateBack({
+        delta: 1
+      })
     }
   }
 }

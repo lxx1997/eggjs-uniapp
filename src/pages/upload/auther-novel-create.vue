@@ -4,20 +4,30 @@
     <u-field
       v-model="form.novelName"
       label="书名"
-      placeholder="请填写手机号"
+      placeholder="请填写书名"
     />
-    <u-field
-      v-model="form.novelCharacter"
-      label="章节名"
-      placeholder="请填写章节名"
-    />
+    <!-- <u-field
+      v-model="form.tag"
+      label="分类"
+      :disabled="true"
+      @click="handleShowSelect"
+      placeholder="请选择分类"
+    /> -->
+    <view class="novel-update-conent">
+      <text class="novel-update-conent-title">分类</text>
+      <picker class="novel-update-conent-picker" mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="index" :range="list">
+        <view class="uni-input">{{list[0][index[0]]}}, {{list[1][index[1]]}}</view>
+      </picker>
+    </view>
     <view class="novel-update-conent novel-update-conent1">
-      <text class="novel-update-conent-title">内容</text>
-      <!-- <textarea class="novel-update-conent-textarea" placeholder="请输入章节内容"></textarea> -->
-      <editor class="novel-update-conent-textarea" max-length="300000" id="editor" placeholder="填写文章内容" @ready="onEditorReady" @input="onEditorInput"></editor>
+      <text class="novel-update-conent-title">简介</text>
+      <div class="novel-update-conent-textarea">
+      <editor class="novel-update-conent-textarea" max-length="30000" id="editor" placeholder="填写文章内容" @ready="onEditorReady" @input="onEditorInput"></editor>
+      </div>
     </view>
   </u-cell-group>
   <view class="novel-update-btn">
+    <u-button :custom-style="customStyle" size="default">提交</u-button>
     <u-button :custom-style="customStyle" size="default">提交</u-button>
   </view>
 </view>
@@ -29,30 +39,58 @@ export default {
     return {
       form: {
         novelName: null,
-        novelCharacter: null,
+        tag: null,
         content: null
       },
-      initText: '<p>jasdfashdfasdfjasdfjkas</p>',
+      editorCtx: null,
       customStyle: {
         width: '400rpx',
         height: '80rpx',
         borderRadius: '100rpx',
         border: '1px solid #000',
         backgroundColor: '#F5DEB3'
-      }
+      },
+      index: [0, 0],
+      list: []
     }
+  },
+  created () {
+    this.list = [['男生', '女生'], [...this.$const.novelTagsBoys]]
+    console.log(this.list)
   },
   methods: {
     onEditorReady () {
       uni.createSelectorQuery().select('#editor').context((res) => {
         this.editorCtx = res.context
-        this.editorCtx.insertText({
-          text: this.initText
-        })
+        this.editorCtx.setContents(this.initText)
       }).exec()
     },
     onEditorInput (e) {
       this.form.content = e.detail.html
+    },
+    handleShowSelect () {
+      this.sheetShow = true
+    },
+    handleSelectTag (index) {
+      this.form.tag = this.list[index].text
+    },
+    // bindPickerChange (e) {
+    //   console.log(e)
+    //   this.index = e.detail.value
+    // }
+    bindMultiPickerColumnChange (e) {
+      this.index[e.detail.column] = e.detail.value
+      switch (e.detail.value) {
+        case 0:
+          this.list[1] = [...this.$const.novelTagsBoys]
+          this.index[1] = 0
+          break
+        case 1:
+          this.list[1] = [...this.$const.novelTagsGirls]
+          this.index[1] = 0
+          break
+      }
+      this.$forceUpdate()
     }
   }
 }
@@ -66,7 +104,6 @@ export default {
   background: #ffffff;
   .u-cell-box {
     flex: 1;
-    overflow: auto;
     /deep/ .u-cell-item-box {
       height: 100%;
       display: flex;
@@ -110,4 +147,5 @@ export default {
     justify-content: flex-end;
   }
 }
+
 </style>

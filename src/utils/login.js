@@ -1,3 +1,3 @@
-export default function isLogin() {
-	return uni.getStorageSync("login");
+export default function isLogin () {
+  return uni.getStorageSync('login')
 }

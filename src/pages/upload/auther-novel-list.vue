@@ -2,7 +2,7 @@
 <view class="auther-novel">
   <u-navbar :is-back="true" title="作者首页">
     <template v-solt:right>
-      <view class="navbar-left">
+      <view class="navbar-left" @click="handleCreateNovel">
         <i class="icon iconfont iconAPPxiazai-"></i>
       </view>
     </template>
@@ -57,6 +57,11 @@ export default {
       console.log(1323)
       uni.navigateTo({
         url: `/pages/upload/auther-novel?id=${i}`
+      })
+    },
+    handleCreateNovel () {
+      uni.navigateTo({
+        url: '/pages/upload/auther-novel-create'
       })
     }
   }
