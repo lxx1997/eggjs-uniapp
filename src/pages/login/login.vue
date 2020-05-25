@@ -51,7 +51,6 @@ export default {
       this.loading = true
       this.$request('login', 'GET', { ...this.form }).then((res) => {
         console.log(res)
-        console.log(res.token)
         setToken(res.token)
         uni.setStorageSync('login', true)
         uni.showToast({
@@ -59,12 +58,14 @@ export default {
           duration: 1000,
           icon: 'success',
           success: (res) => {
+            console.log(res)
             uni.switchTab({
               url: '/pages/user/user'
             })
           }
         })
       }).catch((err) => {
+        console.log(err)
         uni.showToast({
           title: err.msg,
           duration: 3000,

@@ -1,13 +1,6 @@
-export function getToken() {
-  // uni.getStorage({
-  //   key: 'token',
-  //   success: function(res:any) {
-  //     console.log(res.data)
-  //     return res.data
-  //   }
-  // })
+export function getToken () {
   return uni.getStorageSync('token')
 }
-export function setToken(toke){
+export function setToken (token) {
   uni.setStorageSync('token', token)
 }

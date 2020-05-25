@@ -27,8 +27,7 @@
     </view>
   </u-cell-group>
   <view class="novel-update-btn">
-    <u-button :custom-style="customStyle" size="default">提交</u-button>
-    <u-button :custom-style="customStyle" size="default">提交</u-button>
+    <u-button @click="handleUploadNovel" :custom-style="customStyle" size="default">提交</u-button>
   </view>
 </view>
 </template>
@@ -56,9 +55,11 @@ export default {
   },
   created () {
     this.list = [['男生', '女生'], [...this.$const.novelTagsBoys]]
-    console.log(this.list)
   },
   methods: {
+    handleUploadNovel () {
+      this.$request('/novels')
+    },
     onEditorReady () {
       uni.createSelectorQuery().select('#editor').context((res) => {
         this.editorCtx = res.context

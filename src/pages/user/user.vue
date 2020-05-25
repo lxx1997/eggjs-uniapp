@@ -7,8 +7,8 @@
       <view class="userinfo-info-level"><i class="icon iconfont iconicon-test2"></i>普通用户</view>
     </view>
     <view class="userinfo-info-login" v-else>
-      <navigator url="/pages/login/user-login" redirect hover-class="none" class="link-type">登录</navigator>/
-      <navigator url="/pages/login/user-register" redirect hover-class="none" class="link-type">注册</navigator>
+      <navigator url="/pages/login/login" redirect hover-class="none" class="link-type">登录</navigator>/
+      <navigator url="/pages/login/register" redirect hover-class="none" class="link-type">注册</navigator>
     </view>
     <view class="userinfo-info-right">
       <i @click="handleUserInfo" class="icon iconfont iconicon5"></i>
@@ -145,6 +145,8 @@ overflow: auto;
     flex: 1;
     margin: 0 30rpx;
     text-align: left;
+    display: flex;
+    justify-content: flex-start;
   }
   .userinfo-info-right {
     margin-right: 10rpx;

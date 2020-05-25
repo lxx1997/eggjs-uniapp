@@ -45,7 +45,25 @@ export default {
   },
   methods: {
     handleEndNovel () {
-
+      uni.showModal({
+        title: '提示',
+        content: '这是一个模态弹窗',
+        success: function (res) {
+          if (res.confirm) {
+            uni.showToast({
+              title: '图书完结',
+              icon: 'success',
+              duration: 2000
+            })
+          } else if (res.cancel) {
+            uni.showToast({
+              title: '已取消',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        }
+      })
     },
     handleUpdateNovel () {
       uni.navigateTo({
